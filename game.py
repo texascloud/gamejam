@@ -120,11 +120,13 @@ def main():
 			if snake[len(snake)-1].colliderect(rect_object_list[apple]) != 0:
 				body = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
 				snake.append(body)
+				newEquation = True
+				rect_object_list = position_generator(num_apples)
 				score += 1
 			 
 		scoreFont = pygame.font.SysFont('Arial', 40)
 		scoreFont.set_bold
-		scoreText = scoreFont.render("Score: " + str(score), True, black)
+		scoreText = scoreFont.render("Score: " + str(score), True, (0, 100, 0))
 		scoreText_rect = scoreText.get_rect()
 		screen.blit(scoreText, [5,5])
 		# idx = head.collidelist(snake)
