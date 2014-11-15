@@ -6,25 +6,13 @@ pygame.display.set_caption('Snake Solver')
 size = width, height = 800, 600
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
-snakeSize = 10
-x_speed = snakeSize
-y_speed = 0
-
 
 black = 0, 0, 0
 white = 255, 255, 255
 
 gameExit = False
-x_pos = 300
-y_pos = 300
-head = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
-snake = [head]
-for x in range(5):
-	body = pygame.Rect(x_pos-(snakeSize*x)-50, 0, snakeSize, snakeSize)
-	snake.append(body)
 
-fps = 40
-
+fps = 120
 
 while not gameExit:
 	clock.tick(fps)
@@ -55,16 +43,24 @@ while not gameExit:
 	snake[len(snake)-1] = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
 
 	if x_pos < 0 or x_pos > width:
+		gameOver("wall")
 		gameExit = True
 	if y_pos < 0 or y_pos > height:
+		gameOver("wall")
 		gameExit = True
 
 	screen.fill(white)
 	for i in range(len(snake)):
 		pygame.draw.rect(screen, black, snake[i], 0)
 	
-	idx = head.collidelist(snake)
-	if(idx < 0):
-		print idx
-	pygame.display.update()
+	for part in range(len(snake)-1):
+		idx = snake[len(snake)-1].colliderect(snake[part])
+		if idx != 0:
+			gameOver("self")
+			gameExit = True;
+		 
+	# idx = head.collidelist(snake)
+	# if(idx < 0):
+	# 	print idx
 
+	pygame.display.update()
