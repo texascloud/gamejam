@@ -22,10 +22,8 @@ def main():
 	x_pos = 300
 	y_pos = 300
 	snake = [pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)]
-	for x in range(20):
-		body = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
-		snake.append(body)
 
+	score = 0
 	fps = 40
 	font = pygame.font.SysFont('Arial', 30)
 
@@ -42,10 +40,15 @@ def main():
 	#START GRID ITEM VARIABLES
 	img_size = 20
 	num_apples = 4
+
 	rect_object_list = position_generator(num_apples) #list of Rect objects
 	#applepos = pygame.Rect(  random.randint(0, 590), random.randint(0, 590), snakeSize, snakeSize )
 	#appleimage = pygame.Surface((10, 10))
 	#appleimage.fill((0, 255, 0))
+
+	rect_object_list = position_generator(num_apples) #list of 
+
+
 	#END GRID ITEM VARIABLES
 
 	def gameOver(s): ####################################################### GAME OVER
@@ -54,11 +57,6 @@ def main():
 		screen.blit(text, (width/2 -(text_rect.w/2), height/2)) 
 		pygame.display.update()
 		pygame.time.wait(2000)
-
-		# if s == "self":
-		# 	print "STOP TOUCHING YOURSELF!"
-		# elif s == "wall":
-		# 	print "DON'T TOUCH THAT!"
 
 	while not gameExit:
 		clock.tick(fps)
@@ -118,7 +116,17 @@ def main():
 			text = font2.render( str(random_nums[i]), True, red)
 			screen.blit(text, rect_object_list[i])
 		
+		for apple in range(len(rect_object_list)):
+			if snake[len(snake)-1].colliderect(rect_object_list[apple]) != 0:
+				body = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
+				snake.append(body)
+				score += 1
 			 
+		scoreFont = pygame.font.SysFont('Arial', 40)
+		scoreFont.set_bold
+		scoreText = scoreFont.render("Score: " + str(score), True, black)
+		scoreText_rect = scoreText.get_rect()
+		screen.blit(scoreText, [5,5])
 		# idx = head.collidelist(snake)
 		# if(idx < 0):
 		# 	print idx
