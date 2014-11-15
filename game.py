@@ -1,7 +1,6 @@
 import sys, pygame, random
 from pygame.locals import *
 def main():
-	#pygame.init()
 
 	pygame.display.set_caption('Snake Solver')
 	size = width, height = 800, 600
@@ -11,8 +10,6 @@ def main():
 	x_speed = snakeSize
 	y_speed = 0
 	newEquation = True
-	#pygame.mixer.music.load('cooks.mp3')
-	#pygame.mixer.music.play()
 
 
 	black = 0, 0, 0
@@ -34,7 +31,9 @@ def main():
 		numList = []
 		
 		for i in range(amount):
-			applepos = pygame.Rect(  random.randint(img_size, 590), random.randint(img_size, 590), img_size, img_size )
+			applepos = pygame.Rect(  random.randint(img_size, width - img_size), random.randint(img_size + 55, height - img_size), img_size, img_size )
+			while applepos.collidelist(numList) != -1 or applepos.collidelist(snake) != -1:
+				applepos = pygame.Rect(  random.randint(img_size, width), random.randint(img_size, height), img_size, img_size )
 			#add code here to check if the applepos rect collides with the snake, if so generate a new one until it no longer collides
 			numList.append(applepos)
 		return numList
