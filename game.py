@@ -1,5 +1,6 @@
 import sys, pygame, random
 from pygame.locals import *
+
 def main():
 	#pygame.init()
 
@@ -28,7 +29,6 @@ def main():
 	score = 0
 	fps = 40
 	font = pygame.font.SysFont('Arial', 30)
-
 	#Generates random positions -- Should be list of Rects
 	def position_generator(amount):
 		numList = []
@@ -53,12 +53,42 @@ def main():
 
 	#END GRID ITEM VARIABLES
 
-	def gameOver(s): ####################################################### GAME OVER
-		text = font.render("GAME OVER", True, (255, 0, 0))
-		text_rect = text.get_rect()
-		screen.blit(text, (width/2 -(text_rect.w/2), height/2)) 
+	scoreFont = pygame.font.SysFont('Arial', 40)
+	scoreFont.set_bold
+
+	def gameOver(): ####################################################### GAME OVER
+		gameOverFont = pygame.font.SysFont('Arial', 60)
+		gameOverFont.set_bold
+		gameOverText = gameOverFont.render("GAME OVER", True, (255, 0, 0))
+		gameOverText_rect = gameOverText.get_rect()
+		screen.blit(gameOverText, (width/2 -(gameOverText_rect.w/2), height/4)) 
+		
+		scoreText = scoreFont.render("Score: " + str(score), True, (0, 100, 0))
+		scoreText_rect = scoreText.get_rect()
+		screen.blit(scoreText, [5,5])
+		
+		returnFont = pygame.font.SysFont('Arial', 30)
+		returnText = returnFont.render("Press 'Enter' to Return To Menu", True, (0, 0, 255))
+		return_rect = returnText.get_rect()
+		screen.blit(returnText, [width/2-(return_rect.w/2),height/2])
+
+		retryText = returnFont.render("Press 'R' to Play Again", True, (0, 0, 255))
+		retryText_rect = retryText.get_rect()
+		screen.blit(retryText, [width/2-(retryText_rect.w/2),height/2 - 50])
+
 		pygame.display.update()
-		pygame.time.wait(2000)
+
+		exit = False
+		while not exit:
+			for event in pygame.event.get():
+				if event.type == pygame.QUIT:
+					sys.exit(0)
+				elif event.type == pygame.KEYDOWN:
+					if event.key == pygame.K_RETURN:
+						exit = True
+					if event.key == pygame.K_r:
+						main()
+						exit = True
 	
 	while not gameExit:
 		clock.tick(fps)
@@ -89,14 +119,15 @@ def main():
 		snake[len(snake)-1] = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
 
 		if x_pos < 0 or x_pos > width:
-			gameOver("wall")
+			gameOver()
 			gameExit = True
-		if y_pos < 0 or y_pos > height:
-			gameOver("wall")
+		if y_pos < 55 or y_pos > height:
+			gameOver()
 			gameExit = True
 
 		screen.fill(white)
 		#############################DRAW STUFF AFTER THIS LINE #####################################
+		pygame.draw.line(screen, black, (0, 59), (width, 59), 3)
 		for i in range(len(snake)):
 			pygame.draw.rect(screen, black, snake[i], 0)
 		
@@ -125,9 +156,7 @@ def main():
 				newEquation = True
 				rect_object_list = position_generator(num_apples)
 				score += 1
-			 
-		scoreFont = pygame.font.SysFont('Arial', 40)
-		scoreFont.set_bold
+		
 		scoreText = scoreFont.render("Score: " + str(score), True, (0, 100, 0))
 		scoreText_rect = scoreText.get_rect()
 		screen.blit(scoreText, [5,5])
