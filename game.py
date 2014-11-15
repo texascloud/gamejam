@@ -1,6 +1,14 @@
-import sys, pygame
+import sys, pygame, random
 from pygame.locals import *
 pygame.init()
+
+#Generates random positions
+def position_generator(amount):
+	numList = []
+	for i in range(amount):
+		applepos = (random.randint(0, 590), random.randint(0, 590))
+		numList.append(applepos)
+	return numList
 
 pygame.display.set_caption('Snake Solver')
 size = width, height = 800, 600
@@ -10,6 +18,12 @@ snakeSize = 10
 x_speed = snakeSize
 y_speed = 0
 
+#START GRID ITEM VARIABLES
+num_apples = 9
+num_pos = position_generator(num_apples)
+appleimage = pygame.Surface((10, 10))
+appleimage.fill((0, 255, 0))
+#END GRID ITEM VARIABLES
 
 black = 0, 0, 0
 white = 255, 255, 255
@@ -82,6 +96,9 @@ while not gameExit:
 		if idx != 0:
 			gameOver("self")
 			gameExit = True;
+
+	for i in range(num_apples):
+		screen.blit(appleimage, num_pos[i])
 		 
 	# idx = head.collidelist(snake)
 	# if(idx < 0):
