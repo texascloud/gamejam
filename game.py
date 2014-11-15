@@ -31,7 +31,7 @@ def main():
 		numList = []
 		
 		for i in range(amount):
-			applepos = pygame.Rect(  random.randint(img_size, width - img_size), random.randint(img_size + 55, height - img_size), img_size, img_size )
+			applepos = pygame.Rect(  random.randint(img_size, width - img_size), random.randint(img_size + 60, height - img_size), img_size, img_size )
 			while applepos.collidelist(numList) != -1 or applepos.collidelist(snake) != -1:
 				applepos = pygame.Rect(  random.randint(img_size, width), random.randint(img_size, height), img_size, img_size )
 			#add code here to check if the applepos rect collides with the snake, if so generate a new one until it no longer collides
