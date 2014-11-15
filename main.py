@@ -6,9 +6,8 @@ pygame.display.set_caption('Snake Solver')
 size = width, height = 800, 600
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
-speed = 2
 snakeSize = 10
-x_speed = speed
+x_speed = snakeSize
 y_speed = 0
 
 
@@ -20,11 +19,11 @@ x_pos = 300
 y_pos = 300
 head = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
 snake = [head]
-for x in range(10):
-	body = pygame.Rect(x_pos-(snakeSize*x), y_pos, snakeSize, snakeSize)
+for x in range(5):
+	body = pygame.Rect(x_pos-(snakeSize*x)-50, 0, snakeSize, snakeSize)
 	snake.append(body)
 
-fps = 120
+fps = 40
 
 
 while not gameExit:
@@ -34,17 +33,17 @@ while not gameExit:
 			gameExit = True
 		elif event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_LEFT and x_speed == 0:
-				x_speed = -speed
+				x_speed = -snakeSize
 				y_speed = 0
 			if event.key == pygame.K_RIGHT and x_speed == 0:
-				x_speed = speed
+				x_speed = snakeSize
 				y_speed = 0
 			if event.key == pygame.K_UP and y_speed == 0:
 				x_speed = 0
-				y_speed = -speed
+				y_speed = -snakeSize
 			if event.key == pygame.K_DOWN and y_speed == 0:
 				x_speed = 0
-				y_speed = speed
+				y_speed = snakeSize
 
 	x_pos += x_speed
 	y_pos += y_speed
@@ -62,10 +61,10 @@ while not gameExit:
 
 	screen.fill(white)
 	for i in range(len(snake)):
-		print snake[i]
 		pygame.draw.rect(screen, black, snake[i], 0)
 	
-	if(pygame.Rect.collidelist(snake) < 0):
-		gameExit = True
-	pygame.display.flip()
+	idx = head.collidelist(snake)
+	if(idx < 0):
+		print idx
+	pygame.display.update()
 
