@@ -18,9 +18,11 @@ white = 255, 255, 255
 gameExit = False
 x_pos = 300
 y_pos = 300
-snake = [(x_pos, y_pos)]
-for x in range(50):
-	snake.append((x_pos-snakeSize, y_pos))
+head = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
+snake = [head]
+for x in range(10):
+	body = pygame.Rect(x_pos-(snakeSize*x), y_pos, snakeSize, snakeSize)
+	snake.append(body)
 
 fps = 120
 
@@ -51,7 +53,7 @@ while not gameExit:
 		snake[i] = snake[i+1]
 
 	
-	snake[len(snake)-1] = (x_pos, y_pos)
+	snake[len(snake)-1] = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
 
 	if x_pos < 0 or x_pos > width:
 		gameExit = True
@@ -60,7 +62,10 @@ while not gameExit:
 
 	screen.fill(white)
 	for i in range(len(snake)):
-		pygame.draw.rect(screen, black, [snake[i][0], snake[i][1], snakeSize, snakeSize], 0)
+		print snake[i]
+		pygame.draw.rect(screen, black, snake[i], 0)
 	
+	if(pygame.Rect.collidelist(snake) < 0):
+		gameExit = True
 	pygame.display.flip()
 
