@@ -34,7 +34,7 @@ def main():
 		numList = []
 		
 		for i in range(amount):
-			applepos = pygame.Rect(  random.randint(img_size, 590), random.randint(img_size, 590), snakeSize, snakeSize )
+			applepos = pygame.Rect(  random.randint(img_size, 590), random.randint(img_size, 590), img_size, img_size )
 			#add code here to check if the applepos rect collides with the snake, if so generate a new one until it no longer collides
 			numList.append(applepos)
 		return numList
@@ -42,10 +42,10 @@ def main():
 	#START GRID ITEM VARIABLES
 	img_size = 20
 	num_apples = 4
-	rect_object_list = position_generator(num_apples) #list of 
+	rect_object_list = position_generator(num_apples) #list of Rect objects
 	#applepos = pygame.Rect(  random.randint(0, 590), random.randint(0, 590), snakeSize, snakeSize )
-	appleimage = pygame.Surface((10, 10))
-	appleimage.fill((0, 255, 0))
+	#appleimage = pygame.Surface((10, 10))
+	#appleimage.fill((0, 255, 0))
 	#END GRID ITEM VARIABLES
 
 	def gameOver(s): ####################################################### GAME OVER
