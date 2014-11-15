@@ -23,7 +23,7 @@ def main():
 	y_pos = 300
 	snake = [pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)]
 	for x in range(20):
-		body = pygame.Rect(0, 0, snakeSize, snakeSize)
+		body = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
 		snake.append(body)
 
 	fps = 40
@@ -51,7 +51,6 @@ def main():
 	def gameOver(s): ####################################################### GAME OVER
 		text = font.render("GAME OVER", True, (255, 0, 0))
 		text_rect = text.get_rect()
-		print text_rect
 		screen.blit(text, (width/2 -(text_rect.w/2), height/2)) 
 		pygame.display.update()
 		pygame.time.wait(2000)
