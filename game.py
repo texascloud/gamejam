@@ -1,7 +1,7 @@
 import sys, pygame, random
 from pygame.locals import *
 def main():
-	pygame.init()
+	#pygame.init()
 
 	pygame.display.set_caption('Snake Solver')
 	size = width, height = 800, 600
@@ -11,6 +11,8 @@ def main():
 	x_speed = snakeSize
 	y_speed = 0
 	newEquation = True
+	#pygame.mixer.music.load('cooks.mp3')
+	#pygame.mixer.music.play()
 
 
 	black = 0, 0, 0
@@ -57,7 +59,7 @@ def main():
 		screen.blit(text, (width/2 -(text_rect.w/2), height/2)) 
 		pygame.display.update()
 		pygame.time.wait(2000)
-
+	
 	while not gameExit:
 		clock.tick(fps)
 		for event in pygame.event.get():

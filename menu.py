@@ -14,6 +14,8 @@ white = 255, 255, 255
 
 gameExit = False
 fps = 120
+pygame.mixer.music.load('cooks.mp3')
+pygame.mixer.music.play()
 
 while not gameExit:
 	clock.tick(fps)
