@@ -146,7 +146,6 @@ def main(hardMode):
 		
 		scores = sorted(leaderboardList, key=itemgetter(1))
 		if end_score > scores[0][1]:
-			# name = inputbox.ask(screen, "Enter Name")
 			name = getName()
 			scores[0] = (name, end_score)
 
@@ -229,7 +228,7 @@ def main(hardMode):
 			random_nums = []
 			for x in range(num_apples):
 				rndm = random.randint(-20, 20)
-				while rndm is correct_val or rndm in random_nums:
+				while (rndm == correct_val) or (rndm in random_nums):
 					rndm = random.randint(-20, 20)
 				random_nums.append(rndm)
 			newEquation = False
