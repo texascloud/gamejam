@@ -1,8 +1,8 @@
-,7
-aaa,0
-aaa,0
-aaa,0
+vjmc,8
 aaa,0
 aaa,0
 ,1
+vjmc,2
+vjmc,3
 vlad,6
+,7
