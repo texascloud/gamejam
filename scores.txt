@@ -1,8 +1,8 @@
-peter,3
-AAA,-1
-AAA,-1
+lolwat,0
 AAA,-1
 AAA,-1
 ZZZ,0
 Josh,2
+ggkdk,3
+peter,3
 Peter,5

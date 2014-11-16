@@ -1,4 +1,4 @@
-import sys, pygame, random, csv, eztext
+import sys, pygame, random, csv, eztext, string
 from operator import itemgetter
 from pygame.locals import *
 
@@ -63,26 +63,48 @@ def main(hardMode):
 	scoreFont = pygame.font.SysFont('Arial', 40)
 	scoreFont.set_bold
 
+	def get_key():
+		while 1:
+			event = pygame.event.poll()
+			if event.type == KEYDOWN:
+				return event.key
+			else:
+				pass
+
 	def getName():
 		nameEntered = False
 		name = []
 
 		while not nameEntered:
+			promptText = scoreFont.render("Enter Name: " + string.join(name,""), True, black)
+			promptText_rect = promptText.get_rect()
+			screen.blit(promptText, [width/2 - (promptText_rect.w/2),height/4 + 10])
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					sys.exit(0)
-				elif event.type == K_BACKSPACE:
-			      name = current_string[0:-1]
-			    elif event.type == K_RETURN:
-			      break
-			    elif event.type == K_MINUS:
-			      current_string.append("_")
-			    elif event <= 127:
-			      current_string.append(chr(inkey))
+				else:
+					inkey = get_key()
+					if inkey == K_BACKSPACE:
+						name = name[0:-1]
+					elif inkey == K_RETURN:
+						nameEntered = True
+					elif inkey <= 127:
+						name.append(chr(inkey))
+
+
+
+				# elif event.type == K_BACKSPACE:
+			 #    	name = name[0:-1]
+			 #    elif event.type == K_RETURN:
+			 #    	break
+			 #    else
+			 #    	if len(name) < 10:
+				#     	name.append(chr(inkey))
 
 			promptText = scoreFont.render("Enter Name: " + string.join(name,""), True, black)
 			promptText_rect = promptText.get_rect()
 			screen.blit(promptText, [width/2 - (promptText_rect.w/2),height/4 + 10])
+		return string.join(name,"")
 
 	def gameOver(end_score): ####################################################### GAME OVER ###########
 		screen.fill(white) #necessary
@@ -109,6 +131,8 @@ def main(hardMode):
 		retryText = returnFont.render("Press 'R' to Play Again", True, (0, 0, 255))
 		retryText_rect = retryText.get_rect()
 		screen.blit(retryText, [width/2-(retryText_rect.w/2),height/2 - 50])
+
+		pygame.display.update()
 
 		leaderboardList = []
 		with open('scores.txt', 'r') as f:
