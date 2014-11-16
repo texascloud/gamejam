@@ -161,6 +161,7 @@ def main(hardMode, startTime):
 				if event.type == pygame.QUIT:
 					exit = True
 					pygame.quit()
+					sys.exit()
 				elif event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_RETURN:
 						exit = True
