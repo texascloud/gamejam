@@ -12,6 +12,7 @@ def main(hardMode, startTime):
 	y_speed = 0
 	newEquation = True
 
+	player2 = False
 	black = 0, 0, 0
 	white = 255, 255, 255
 	red = 255, 0, 0
@@ -190,19 +191,34 @@ def main(hardMode, startTime):
 			if event.type == pygame.QUIT:
 					gameExit = True
 					pygame.quit()
-			elif event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_LEFT and x_speed == 0:
-					x_speed = -snakeSize
-					y_speed = 0
-				if event.key == pygame.K_RIGHT and x_speed == 0:
-					x_speed = snakeSize
-					y_speed = 0
-				if event.key == pygame.K_UP and y_speed == 0:
-					x_speed = 0
-					y_speed = -snakeSize
-				if event.key == pygame.K_DOWN and y_speed == 0:
-					x_speed = 0
-					y_speed = snakeSize
+			elif not player2:
+				if event.type == pygame.KEYDOWN:
+					if event.key == pygame.K_LEFT and x_speed == 0:
+						x_speed = -snakeSize
+						y_speed = 0
+					if event.key == pygame.K_RIGHT and x_speed == 0:
+						x_speed = snakeSize
+						y_speed = 0
+					if event.key == pygame.K_UP and y_speed == 0:
+						x_speed = 0
+						y_speed = -snakeSize
+					if event.key == pygame.K_DOWN and y_speed == 0:
+						x_speed = 0
+						y_speed = snakeSize
+			else:
+				if event.type == pygame.KEYDOWN:
+					if event.key == pygame.K_a and x_speed == 0:
+						x_speed = -snakeSize
+						y_speed = 0
+					if event.key == pygame.K_d and x_speed == 0:
+						x_speed = snakeSize
+						y_speed = 0
+					if event.key == pygame.K_w and y_speed == 0:
+						x_speed = 0
+						y_speed = -snakeSize
+					if event.key == pygame.K_s and y_speed == 0:
+						x_speed = 0
+						y_speed = snakeSize
 
 		x_pos += x_speed
 		y_pos += y_speed
@@ -272,6 +288,8 @@ def main(hardMode, startTime):
 					newEquation = True
 					#rect_object_list = position_generator(num_apples)
 					score += 1
+					if score % 3 == 0:
+						player2 = not player2
 				else:
 					gameOver(score)
 					gameExit= True
