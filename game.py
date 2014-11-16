@@ -134,9 +134,9 @@ def main(hardMode):
 		pygame.display.update()
 
 		leaderboardList = []
-		if hardMode: f = 'ERECTscores.txt'
-		else: f = 'scores.txt'
-		with open(f, 'r') as f:
+		if hardMode: scoreFile = 'ERECTscores.txt'
+		else: scoreFile = 'scores.txt'
+		with open(scoreFile, 'r') as f:
 			reader = csv.reader(f, delimiter=",")
 			for row in reader:
 				leaderboardList.append(row)
@@ -150,7 +150,7 @@ def main(hardMode):
 			name = getName()
 			scores[0] = (name, end_score)
 
-		with open(f, "w") as f:
+		with open(scoreFile, "w") as f:
 		    csv.register_dialect("custom", delimiter=",", skipinitialspace=True)
 		    writer = csv.writer(f, dialect="custom")
 		    for tup in scores:
@@ -226,7 +226,6 @@ def main(hardMode):
 			if hardMode:
 				num_apples += 1 
 			rect_object_list = position_generator(num_apples)
-			#random_nums = [random.randint(-50, 50) for x in range(num_apples)] #[1, 5, 7, 2]
 			random_nums = []
 			for x in range(num_apples):
 				rndm = random.randint(-20, 20)
