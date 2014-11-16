@@ -93,6 +93,8 @@ def main(hardMode):
 			reader = csv.reader(f, delimiter=",")
 			for row in reader:
 				leaderboardList.append(row)
+		for i in range(len(leaderboardList)):
+			leaderboardList[i] = (leaderboardList[i][0], int(leaderboardList[i][1]))
 		print leaderboardList
 		scores = sorted(leaderboardList, key=itemgetter(1))
 		print scores
