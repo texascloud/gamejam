@@ -12,7 +12,6 @@ def main(hardMode, startTime):
 	y_speed = 0
 	newEquation = True
 
-
 	black = 0, 0, 0
 	white = 255, 255, 255
 	red = 255, 0, 0
@@ -106,7 +105,6 @@ def main(hardMode, startTime):
 
 		return string.join(name,"")
 
-	time = startTime
 
 	def gameOver(end_score): ####################################################### GAME OVER ###########
 		screen.fill(white) #necessary
@@ -170,11 +168,19 @@ def main(hardMode, startTime):
 					if event.key == pygame.K_RETURN:
 						exit = True
 					if event.key == pygame.K_r:
-						main(hardMode, pygame.time.get_ticks() / 1000.0)
+						t = pygame.time.get_ticks()
+						main(hardMode, t)
 						exit = True
 	
 	while not gameExit:
-		time = (pygame.time.get_ticks() / 1000.0) - startTime
+		currentTime = (pygame.time.get_ticks() / 1000.0) - (startTime / 1000.0)
+		if hardMode:
+			if currentTime > 10.0:
+				gameOver(score)
+		else:
+			if currentTime > 15.0:
+				gameOver(score)
+
 
 		clock.tick(fps)
 		for event in pygame.event.get():
@@ -228,7 +234,7 @@ def main(hardMode, startTime):
 		if newEquation:
 			#create list of randomly generated numbers
 			eq, correct_val, solved_eq = equation()
-			startTime = time
+			startTime =  pygame.time.get_ticks()
 			if hardMode: fps += 5
 			else: fps += 2
 			if hardMode:
@@ -276,8 +282,8 @@ def main(hardMode, startTime):
 		equationText_rect = equationText.get_rect()
 		screen.blit(equationText, [width/2 - (equationText_rect.w/2),5])
 
-		#######SCORE#######	
-		timeText = scoreFont.render(str(time), True, (0, 100, 0))
+		#######TIME#######	
+		timeText = scoreFont.render(str(currentTime), True, (0, 100, 0))
 		timeText_rect = timeText.get_rect()
 		screen.blit(timeText, [(width*7)/8,5])
 

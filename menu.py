@@ -51,9 +51,9 @@ while not gameExit:
 			sys.exit(0)
 		elif event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_RETURN:
-				main(False, pygame.time.get_ticks() / 1000.0)
+				main(False, pygame.time.get_ticks())
 			if event.key == pygame.K_c:
-				main(True, pygame.time.get_ticks() / 1000.0)
+				main(True, pygame.time.get_ticks())
 			if event.key == pygame.K_l:
 				scores()
 
