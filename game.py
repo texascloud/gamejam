@@ -1,4 +1,5 @@
 import sys, pygame, random, csv
+from operator import itemgetter
 from pygame.locals import *
 
 def main(hardMode):
@@ -62,7 +63,7 @@ def main(hardMode):
 	scoreFont.set_bold
 
 	def gameOver(end_score): ####################################################### GAME OVER ###########
-		screen.fill(white)
+		screen.fill(white) #necessary
 
 		solvedEquationText = scoreFont.render(solved_eq, True, black)
 		solvedEquationText_rect = solvedEquationText.get_rect()
@@ -87,12 +88,14 @@ def main(hardMode):
 		retryText_rect = retryText.get_rect()
 		screen.blit(retryText, [width/2-(retryText_rect.w/2),height/2 - 50])
 
-		highScoreList = []
+		leaderboardList = []
 		with open('scores.txt', 'r') as f:
 			reader = csv.reader(f, delimiter=",")
 			for row in reader:
-				highScoreList.append(row)
-		print highScoreList
+				leaderboardList.append(row)
+		print leaderboardList
+		scores = sorted(leaderboardList, key=itemgetter(1))
+		print scores
 		pygame.display.update()
 
 		exit = False

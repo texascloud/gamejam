@@ -1,5 +1,5 @@
-Peter,26
 Josh,1
 Ty,0
-Tyler,0
+Peter,26
+Tyler,3
 Mary,-1
