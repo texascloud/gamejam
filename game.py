@@ -1,4 +1,4 @@
-import sys, pygame, random, csv, eztext, string
+import sys, pygame, random, csv, string
 from operator import itemgetter
 from pygame.locals import *
 

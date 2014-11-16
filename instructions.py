@@ -1,8 +1,8 @@
 import sys, pygame
 from pygame.locals import *
 
-def scores():
-	pygame.display.set_caption('Snake Solver - Leaderboard')
+def instructions():
+	pygame.display.set_caption('Snake Solver - Instructions')
 	size = width, height = 1280, 700
 	screen = pygame.display.set_mode(size)
 	clock = pygame.time.Clock()
@@ -13,28 +13,6 @@ def scores():
 
 	gameExit = False
 	fps = 60
-	casualScoreList =[]
-	hardScoreList =[]
-
-	with open('scores.txt', 'r') as f:
-		reader = csv.reader(f, delimiter=",")
-		for row in reader:
-			casualScoreList.append(row)
-
-	for i in range(len(casualScoreList)):
-		casualScoreList[i] = (casualScoreList[i][0], int(casualScoreList[i][1]))
-	casualScoreList = sorted(casualScoreList, key=itemgetter(1))
-	casualScoreList = casualScoreList[::-1]
-
-	with open('ERECTscores.txt', 'r') as f:
-		reader = csv.reader(f, delimiter=",")
-		for row in reader:
-			hardScoreList.append(row)
-
-	for i in range(len(hardScoreList)):
-		hardScoreList[i] = (hardScoreList[i][0], int(hardScoreList[i][1]))
-	hardScoreList = sorted(hardScoreList, key=itemgetter(1))
-	hardScoreList = hardScoreList[::-1]
 
 	while not gameExit:
 		clock.tick(fps)
@@ -52,52 +30,36 @@ def scores():
 		#########TITLE#########
 		titleFont = pygame.font.SysFont('Arial', 60)
 		titleFont.set_underline(True)
-		title = titleFont.render("Leaderboard", True, black)
+		title = titleFont.render("Instructions", True, black)
 
 		title_rect = title.get_rect()
 		screen.blit(title, [width/2-(title_rect.w/2),height/8 - 50])
+
+		#########PLAYER1#########
+		instructionsFont = pygame.font.SysFont('Comic Sans', 40)
+		player1Text = instructionsFont.render("Player 1 Controls: Arrow Keys", True, black)
+		player1Text_rect = player1Text.get_rect()
+		screen.blit(player1Text, [width/2-(player1Text_rect.w/2),height/4])
+
+		#########PLAYER1#########
+		player2Text = instructionsFont.render("Player 2 Controls: WASD", True, black)
+		player2Text_rect = player2Text.get_rect()
+		screen.blit(player2Text, [width/2-(player2Text_rect.w/2),height/4+50])
+
+		#########SWITCHING#########
+		casualText = instructionsFont.render("If you're a filthy casual, controls will switch between players every 3 equations", True, black)
+		casualText_rect = casualText.get_rect()
+		screen.blit(casualText, [width/2-(casualText_rect.w/2),height/4+150])
+
+		#########SWITCHING2#########
+		hardText = instructionsFont.render("On Hard Mode, controls switch after every equation", True, black)
+		hardText_rect = hardText.get_rect()
+		screen.blit(hardText, [width/2-(hardText_rect.w/2),height/4+200])
 
 		#########RETURN#########
 		returnFont = pygame.font.SysFont('Arial', 25)
 		returnFontText = returnFont.render("Press Any Key To Return To Menu", True, black)
 		returnFontText_rect = returnFontText.get_rect()
 		screen.blit(returnFontText, [width/2-(returnFontText_rect.w/2),height-65])
-		
-		#########CASUAL#########
-		subTitleFont = pygame.font.SysFont('Arial', 20)
-		subTitleFont.set_underline(True)
-		subTitleFont.set_bold(True)
-		casualText = subTitleFont.render("FUCKING CASUALS", True, black)
-		casualText_rect = casualText.get_rect()
-		screen.blit(casualText, [width/4-(casualText_rect.w/2)+ 29,height/8+30])
-
-		#########HARDCORE#########
-		casualText = subTitleFont.render("SO HARDCORE", True, black)
-		casualText_rect = casualText.get_rect()
-		screen.blit(casualText, [width-(casualText_rect.w)- 290,height/8+30])
-
-		#########SCORES#########
-		pygame.draw.line(screen, black, (width/2, height/7), (width/2, height-80), 4)
-		scoreFont = pygame.font.SysFont('Arial', 25)
-		for i in range(len(casualScoreList)):
-			###NAMES###
-			nameText = scoreFont.render(str(i+1) + ". " + casualScoreList[i][0], True, black)
-			nameText_rect = nameText.get_rect()
-			screen.blit(nameText, [width/4-75,(height/8-40)+(50*(i+2))])
-			###SCORES###
-			scoreText = scoreFont.render("   - - -      " + str(casualScoreList[i][1]), True, black)
-			scoreText_rect = scoreText.get_rect()
-			screen.blit(scoreText, [width/4+10,(height/8-40)+(50*(i+2))])
-
-		for i in range(len(hardScoreList)):
-			###NAMES###
-			nameText = scoreFont.render(str(i+1) + ". " + hardScoreList[i][0], True, black)
-			nameText_rect = nameText.get_rect()
-			screen.blit(nameText, [((width*2)/3)-50,(height/8-40)+(50*(i+2))])
-			###SCORES###
-			scoreText = scoreFont.render("   - - -      " + str(hardScoreList[i][1]), True, black)
-			scoreText_rect = scoreText.get_rect()
-			screen.blit(scoreText, [((width*2)/3)+50,(height/8-40)+(50*(i+2))])
-
 
 		pygame.display.update()

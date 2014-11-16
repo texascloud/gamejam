@@ -1,4 +1,4 @@
-turd,8
+peter,10
 Peter,8
 kikky,9
 j an p,9

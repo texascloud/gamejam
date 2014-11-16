@@ -1,7 +1,8 @@
-import sys, pygame, PodSixNet
+import sys, pygame
 from pygame.locals import *
 from game import main
 from leaderboard import scores
+from instructions import instructions
 pygame.init()
 
 pygame.display.set_caption('Snake Solver')
@@ -46,6 +47,10 @@ while not gameExit:
 	leaderboardText = startFont.render("Press 'L' to View High Scores", True, (255, 0, 0))
 	leaderboardText_rect = leaderboardText.get_rect()
 
+	#########INSTRUCTIONS#########
+	instructionsText = startFont.render("Press 'I' to View Instructions", True, (255, 0, 0))
+	instructionsText_rect = instructionsText.get_rect()
+
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			pygame.quit()
@@ -57,6 +62,8 @@ while not gameExit:
 				main(True, pygame.time.get_ticks())
 			if event.key == pygame.K_l:
 				scores()
+			if event.key == pygame.K_i:
+				instructions()
 
 	screen.fill(white)
 	screen.blit(title, [width/2-(title_rect.w/2),height/4 - 50])
@@ -64,5 +71,6 @@ while not gameExit:
 	screen.blit(start, [width/2-(start_rect.w/2),height/2 - 20])
 	screen.blit(hard, [width/2-(hard_rect.w/2),height/2+40])
 	screen.blit(leaderboardText, [width/2-(leaderboardText_rect.w/2),height/2+130])
+	screen.blit(instructionsText, [width/2-(instructionsText_rect.w/2),height/2+190])
 
 	pygame.display.update()
