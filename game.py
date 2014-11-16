@@ -23,6 +23,18 @@ def main():
 	y_pos = 300
 	snake = [pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)]
 
+	ops = ["+", "-"]
+	eq = ""
+	correct_val = 0
+
+	def equation():
+		correct_val = random.randint(-50, 50)
+		op = ops[random.randint(0, len(ops)-1)]
+		var = random.randint(-50, 50)
+		result = eval(str(var) + " " + op + " " + str(correct_val))
+		eq = str(var) + " " + str(op) + " _ " + " = " + str(result)
+		return eq
+
 	score = 0
 	fps = 40
 	font = pygame.font.SysFont('Arial', 30)
@@ -93,7 +105,7 @@ def main():
 		clock.tick(fps)
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
-				gameExit = True
+				sys.exit(0)
 			elif event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_LEFT and x_speed == 0:
 					x_speed = -snakeSize
@@ -133,7 +145,7 @@ def main():
 		for part in range(len(snake)-1):
 			idx = snake[len(snake)-1].colliderect(snake[part])
 			if idx != 0:
-				gameOver("self")
+				gameOver()
 				gameExit = True;
 
 
@@ -141,6 +153,8 @@ def main():
 		if newEquation:
 			#create list of randomly generated numbers
 			random_nums = [random.randint(0, 10) for x in range(num_apples)] #[1, 5, 7, 2]
+			eq = equation()
+
 			newEquation = False
 
 		for i in range(num_apples):
@@ -159,8 +173,9 @@ def main():
 		scoreText = scoreFont.render("Score: " + str(score), True, (0, 100, 0))
 		scoreText_rect = scoreText.get_rect()
 		screen.blit(scoreText, [5,5])
-		# idx = head.collidelist(snake)
-		# if(idx < 0):
-		# 	print idx
+
+		equationText = scoreFont.render(eq, True, black)
+		equationText_rect = equationText.get_rect()
+		screen.blit(equationText, [width/2 - (equationText_rect.w/2),5])
 
 		pygame.display.update()
