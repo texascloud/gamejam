@@ -1,6 +1,6 @@
+peter,3
+peter,3
 jp,4
-peter,3
-peter,3
 pj,4
 peter,4
 r,4

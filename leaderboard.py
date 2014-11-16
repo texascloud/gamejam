@@ -38,10 +38,6 @@ def scores():
 	hardScoreList = sorted(hardScoreList, key=itemgetter(1))
 	hardScoreList = hardScoreList[::-1]
 
-	# f = open('scores.txt', 'w+')
-	# for l in f.readlines():
-	# 	print l.strip().split(", ")
-
 	while not gameExit:
 		clock.tick(fps)
 
@@ -79,10 +75,10 @@ def scores():
 		#########HARDCORE#########
 		casualText = subTitleFont.render("SO HARDCORE", True, black)
 		casualText_rect = casualText.get_rect()
-		screen.blit(casualText, [width-(casualText_rect.w)- 120,height/8+30])
+		screen.blit(casualText, [width-(casualText_rect.w)- 290,height/8+30])
 
 		#########SCORES#########
-		pygame.draw.line(screen, black, (width/2, height/7+5), (width/2, height-80), 4)
+		pygame.draw.line(screen, black, (width/2, height/7), (width/2, height-80), 4)
 		scoreFont = pygame.font.SysFont('Arial', 25)
 		for i in range(len(casualScoreList)):
 			###NAMES###
