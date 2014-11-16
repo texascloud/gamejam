@@ -1,4 +1,5 @@
-import sys, pygame
+from __future__ import print_function
+import sys, pygame, csv
 from pygame.locals import *
 
 def scores():
@@ -13,6 +14,16 @@ def scores():
 
 	gameExit = False
 	fps = 120
+	highScoreList =[]
+
+	with open('scores.txt', 'r') as f:
+		reader = csv.reader(f, delimiter=",")
+		for row in reader:
+			highScoreList.append(row)
+
+	# f = open('scores.txt', 'w+')
+	# for l in f.readlines():
+	# 	print l.strip().split(", ")
 
 	while not gameExit:
 		clock.tick(fps)
@@ -38,4 +49,13 @@ def scores():
 		returnFontText_rect = returnFontText.get_rect()
 		screen.blit(returnFontText, [width/2-(returnFontText_rect.w/2),height-100])
 
+		scoreFont = pygame.font.SysFont('Arial', 25)
+		for i in range(len(highScoreList)):
+			nameText = scoreFont.render(str(i+1) + ". " + highScoreList[i][0], True, black)
+			nameText_rect = nameText.get_rect()
+			screen.blit(nameText, [width/3-(nameText_rect.w/2),(height/8-50)+(50*(i+2))])
+
 		pygame.display.update()
+
+		# if gameExit:
+		# 	f.close()
