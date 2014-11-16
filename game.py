@@ -11,11 +11,14 @@ def main(hardMode, startTime):
 	x_speed = snakeSize
 	y_speed = 0
 	newEquation = True
-
+	turns = 3
+	if hardMode: turns = 1
 	player2 = False
 	black = 0, 0, 0
 	white = 255, 255, 255
 	red = 255, 0, 0
+	blue = 0, 0, 255
+	snake_color = black
 
 	font = pygame.font.SysFont('Arial', 30)
 	gameExit = False
@@ -241,7 +244,7 @@ def main(hardMode, startTime):
 		############################# DRAW STUFF AFTER THIS LINE #####################################
 		pygame.draw.line(screen, black, (0, 59), (width, 59), 3)
 		for i in range(len(snake)):
-			pygame.draw.rect(screen, black, snake[i], 0)
+			pygame.draw.rect(screen, snake_color, snake[i], 0)
 		
 		for part in range(len(snake)-1):
 			idx = snake[len(snake)-1].colliderect(snake[part])
@@ -288,8 +291,13 @@ def main(hardMode, startTime):
 					newEquation = True
 					#rect_object_list = position_generator(num_apples)
 					score += 1
-					if score % 3 == 0:
+
+					if score % turns == 0:
 						player2 = not player2
+						if snake_color is blue:
+							snake_color = black
+						else:
+							snake_color = blue
 				else:
 					gameOver(score)
 					gameExit= True
