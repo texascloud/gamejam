@@ -23,6 +23,13 @@ while not gameExit:
 	clock.tick(fps)
 	pygame.display.set_caption('Snake Solver')
 
+	##########TEAM NAME##############
+	teamFont = pygame.font.SysFont('Arial', 45)
+	#teamFont.set_bold(True)
+	teamFont.set_underline(True)
+	team = teamFont.render("Lobster Knife Fight presents:", True, (251,85,28))
+	team_rect = team.get_rect()
+	
 	#########TITLE#########
 	titleFont = pygame.font.SysFont('Arial', 60)
 	titleFont.set_bold
@@ -44,11 +51,11 @@ while not gameExit:
 	hard_rect = hard.get_rect()
 
 	#########LEADERBOARD#########
-	leaderboardText = startFont.render("Press 'L' to View High Scores", True, (255, 0, 0))
+	leaderboardText = startFont.render("Press 'L' to View High Scores", True, (0, 255, 0))
 	leaderboardText_rect = leaderboardText.get_rect()
 
 	#########INSTRUCTIONS#########
-	instructionsText = startFont.render("Press 'I' to View Instructions", True, (255, 0, 0))
+	instructionsText = startFont.render("Press 'I' to View Instructions", True, (0, 255, 0))
 	instructionsText_rect = instructionsText.get_rect()
 
 	for event in pygame.event.get():
@@ -66,6 +73,7 @@ while not gameExit:
 				instructions()
 
 	screen.fill(white)
+	screen.blit(team, [width/2-(team_rect.w/2),height/8 - 40])
 	screen.blit(title, [width/2-(title_rect.w/2),height/4 - 50])
 	screen.blit(subTitle, [width/2-(sub_title_rect.w/2),height/4 + 15])
 	screen.blit(start, [width/2-(start_rect.w/2),height/2 - 20])
