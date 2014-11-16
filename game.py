@@ -177,9 +177,11 @@ def main(hardMode, startTime):
 		if hardMode:
 			if currentTime > 10.0:
 				gameOver(score)
+				gameExit = True
 		else:
 			if currentTime > 15.0:
 				gameOver(score)
+				gameExit = True
 
 
 		clock.tick(fps)
