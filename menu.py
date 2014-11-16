@@ -1,6 +1,7 @@
 import sys, pygame
 from pygame.locals import *
 from game import main
+from leaderboard import scores
 pygame.init()
 
 pygame.display.set_caption('Snake Solver')
@@ -19,6 +20,7 @@ pygame.mixer.music.play()
 
 while not gameExit:
 	clock.tick(fps)
+	pygame.display.set_caption('Snake Solver')
 
 	#########TITLE#########
 	titleFont = pygame.font.SysFont('Arial', 60)
@@ -40,19 +42,26 @@ while not gameExit:
 	hard = startFont.render("Press 'C' to Play Hard Mode", True, (0, 0, 255))
 	hard_rect = hard.get_rect()
 
+	#########LEADERBOARD#########
+	leaderboardText = startFont.render("Press 'L' to View High Scores", True, (255, 0, 0))
+	leaderboardText_rect = leaderboardText.get_rect()
+
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
-			gameExit = True
+			sys.exit(0)
 		elif event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_RETURN:
 				main(False)
 			if event.key == pygame.K_c:
 				main(True)
+			if event.key == pygame.K_l:
+				scores()
 
 	screen.fill(white)
-	screen.blit(title, [width/2-(title_rect.w/2),height/4])
-	screen.blit(subTitle, [width/2-(sub_title_rect.w/2),height/3+ 15])
-	screen.blit(start, [width/2-(start_rect.w/2),height/2])
-	screen.blit(hard, [width/2-(hard_rect.w/2),height/2+50])
+	screen.blit(title, [width/2-(title_rect.w/2),height/4 - 50])
+	screen.blit(subTitle, [width/2-(sub_title_rect.w/2),height/4 + 15])
+	screen.blit(start, [width/2-(start_rect.w/2),height/2 - 20])
+	screen.blit(hard, [width/2-(hard_rect.w/2),height/2+40])
+	screen.blit(leaderboardText, [width/2-(leaderboardText_rect.w/2),height/2+130])
 
 	pygame.display.update()
