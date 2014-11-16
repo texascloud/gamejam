@@ -14,7 +14,7 @@ def scores():
 	white = 255, 255, 255
 
 	gameExit = False
-	fps = 120
+	fps = 60
 	highScoreList =[]
 
 	with open('scores.txt', 'r') as f:
@@ -46,6 +46,7 @@ def scores():
 		titleFont = pygame.font.SysFont('Arial', 60)
 		titleFont.set_underline(True)
 		title = titleFont.render("Leaderboard", True, black)
+
 		title_rect = title.get_rect()
 		screen.blit(title, [width/2-(title_rect.w/2),height/8 - 50])
 
@@ -53,7 +54,7 @@ def scores():
 		returnFont = pygame.font.SysFont('Arial', 25)
 		returnFontText = returnFont.render("Press Any Key To Return To Menu", True, black)
 		returnFontText_rect = returnFontText.get_rect()
-		screen.blit(returnFontText, [width/2-(returnFontText_rect.w/2),height-100])
+		screen.blit(returnFontText, [width/2-(returnFontText_rect.w/2),height-80])
 
 		scoreFont = pygame.font.SysFont('Arial', 25)
 		for i in range(len(highScoreList)):

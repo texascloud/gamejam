@@ -12,7 +12,6 @@ def main(hardMode):
 	x_speed = snakeSize
 	y_speed = 0
 	newEquation = True
-	txtbx = eztext.Input(maxlength=45, color=(255,0,0), prompt='type here: ')
 
 
 	black = 0, 0, 0
@@ -25,19 +24,19 @@ def main(hardMode):
 	y_pos = 300
 	snake = [pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)]
 
-	ops = ["+", "-"]
+	ops = ["+", "-", "*"]
 	eq = ""
 	solved_eq = ""
 	correct_val = 0
 	#real_rect = pygame.Rect(  random.randint(img_size, width - img_size), random.randint(img_size + 60, height - img_size), img_size+5, img_size+5 )
 
 	def equation():
-		correct_val = random.randint(-50, 50)
+		correct_val = random.randint(-20, 20)
 		op = ops[random.randint(0, len(ops)-1)]
-		var = random.randint(-50, 50)
+		var = random.randint(-150, 150)
 		result = eval(str(var) + " " + op + " " + str(correct_val))
 		eq = str(var) + " " + str(op) + " _ " + " = " + str(result)
-		solved_eq = str(var) +str(op) + " "+ str(correct_val) + " = " + str(result)
+		solved_eq = str(var) + " " +str(op) + " "+ str(correct_val) + " = " + str(result)
 		return (eq, correct_val, solved_eq)
 
 	score = 0
@@ -228,9 +227,9 @@ def main(hardMode):
 			#random_nums = [random.randint(-50, 50) for x in range(num_apples)] #[1, 5, 7, 2]
 			random_nums = []
 			for x in range(num_apples):
-				rndm = random.randint(-50, 50)
-				while rndm is correct_val:
-					rndm = random.randint(-50, 50)
+				rndm = random.randint(-20, 20)
+				while rndm == correct_val:
+					rndm = random.randint(-20, 20)
 				random_nums.append(rndm)
 			newEquation = False
 
