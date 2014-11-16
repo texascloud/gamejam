@@ -41,9 +41,7 @@ while not gameExit:
 			gameExit = True
 		elif event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_RETURN:
-				main(False)
-			if event.key == pygame.K_c:
-				main(True)
+				main()
 
 	screen.fill(white)
 	screen.blit(title, [width/2-(title_rect.w/2),height/4])
