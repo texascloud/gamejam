@@ -1,4 +1,4 @@
-import sys, pygame
+import sys, pygame, PodSixNet
 from pygame.locals import *
 from game import main
 from leaderboard import scores

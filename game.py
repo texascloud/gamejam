@@ -55,7 +55,7 @@ def main(hardMode):
 
 	#START GRID ITEM VARIABLES
 	img_size = 20
-	num_apples = 4
+	num_apples = 7
 	rect_object_list = position_generator(num_apples) #list of Rect objects
 	#END GRID ITEM VARIABLES
 
