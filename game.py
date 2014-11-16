@@ -42,32 +42,24 @@ def main(hardMode):
 	######################################### Generates random positions -- Should be list of Rects
 	def position_generator(amount):
 		numList = []
-		
 		for i in range(amount):
 			applepos = pygame.Rect(  random.randint(img_size, width - img_size), random.randint(img_size + 60, height - img_size), img_size+5, img_size+5 )
+			#check if the applepos rect collides with the snake, if so generate a new one until it no longer collides
 			while applepos.collidelist(numList) != -1 or applepos.collidelist(snake) != -1:
 				applepos = pygame.Rect(  random.randint(img_size, width), random.randint(img_size, height), img_size, img_size )
-			#add code here to check if the applepos rect collides with the snake, if so generate a new one until it no longer collides
 			numList.append(applepos)
-
-		#real_rect = pygame.Rect(  random.randint(img_size, width - img_size), random.randint(img_size + 60, height - img_size), img_size+5, img_size+5 )
-
-		#numList.insert(0, real_rect) #real_rect is at the beginning of the numList
 		return numList
 
 	#START GRID ITEM VARIABLES
 	img_size = 20
 	num_apples = 6
-
 	rect_object_list = position_generator(num_apples) #list of Rect objects
-
-
 	#END GRID ITEM VARIABLES
 
 	scoreFont = pygame.font.SysFont('Arial', 40)
 	scoreFont.set_bold
 
-	def gameOver(): ####################################################### GAME OVER
+	def gameOver(): ####################################################### GAME OVER ###########
 		gameOverFont = pygame.font.SysFont('Arial', 60)
 		gameOverFont.set_bold
 		gameOverText = gameOverFont.render("GAME OVER", True, (255, 0, 0))
@@ -151,14 +143,19 @@ def main(hardMode):
 
 
 		if newEquation:
-
 			#create list of randomly generated numbers
 			eq, correct_val = equation()
 			fps += 2
 			if hardMode:
 				num_apples += 1 
 			rect_object_list = position_generator(num_apples)
-			random_nums = [random.randint(-50, 50) for x in range(num_apples)] #[1, 5, 7, 2]
+			#random_nums = [random.randint(-50, 50) for x in range(num_apples)] #[1, 5, 7, 2]
+			random_nums = []
+			for x in range(num_apples):
+				rndm = random.randint(-50, 50)
+				while rndm is correct_val:
+					rndm = random.randint(-50, 50)
+				random_nums.append(rndm)
 			newEquation = False
 
 		########### DRAW APPLES AND 1 CORRECT VALUE ##############
