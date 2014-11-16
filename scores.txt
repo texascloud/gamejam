@@ -1,8 +1,8 @@
-lolwat,0
-AAA,-1
-AAA,-1
-ZZZ,0
-Josh,2
-ggkdk,3
-peter,3
-Peter,5
+aaasss,0
+aaa,-1
+aaa,-1
+my name i petr,0
+pet,0
+ass,2
+Josh,3
+Peter,8

@@ -76,9 +76,11 @@ def main(hardMode):
 		name = []
 
 		while not nameEntered:
+			pygame.display.update()
+			pygame.draw.rect(screen, white, pygame.Rect(0, height/4+40, width, 50), 0)
 			promptText = scoreFont.render("Enter Name: " + string.join(name,""), True, black)
 			promptText_rect = promptText.get_rect()
-			screen.blit(promptText, [width/2 - (promptText_rect.w/2),height/4 + 10])
+			screen.blit(promptText, [width/2 - (promptText_rect.w/2),height/4 + 40])
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					sys.exit(0)
@@ -89,7 +91,8 @@ def main(hardMode):
 					elif inkey == K_RETURN:
 						nameEntered = True
 					elif inkey <= 127:
-						name.append(chr(inkey))
+						if len(name) < 6:
+							name.append(chr(inkey))
 
 
 
@@ -101,9 +104,6 @@ def main(hardMode):
 			 #    	if len(name) < 10:
 				#     	name.append(chr(inkey))
 
-			promptText = scoreFont.render("Enter Name: " + string.join(name,""), True, black)
-			promptText_rect = promptText.get_rect()
-			screen.blit(promptText, [width/2 - (promptText_rect.w/2),height/4 + 10])
 		return string.join(name,"")
 
 	def gameOver(end_score): ####################################################### GAME OVER ###########
