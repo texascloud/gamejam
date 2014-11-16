@@ -36,7 +36,7 @@ while not gameExit:
 
 	#########START#########
 	startFont = pygame.font.SysFont('Arial', 45)
-	start = startFont.render("Press 'Enter' to Play", True, (0, 0, 255))
+	start = startFont.render("Press 'Enter' to Play Casual Mode", True, (0, 0, 255))
 	start_rect = start.get_rect()
 
 	#########HARD#########

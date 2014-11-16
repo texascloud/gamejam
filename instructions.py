@@ -56,6 +56,16 @@ def instructions():
 		hardText_rect = hardText.get_rect()
 		screen.blit(hardText, [width/2-(hardText_rect.w/2),height/4+200])
 
+		#########TIME1#########
+		timeText1 = instructionsFont.render("On Casual Mode, you will have 15 seconds to solve each equation", True, black)
+		timeText1_rect = timeText1.get_rect()
+		screen.blit(timeText1, [width/2-(timeText1_rect.w/2),height/2 + 100])
+
+		#########TIME2#########
+		timeText2 = instructionsFont.render("On Hard Mode, this decreases to 10 seconds", True, black)
+		timeText2_rect = timeText2.get_rect()
+		screen.blit(timeText2, [width/2-(timeText2_rect.w/2),height/2 + 150])
+
 		#########RETURN#########
 		returnFont = pygame.font.SysFont('Arial', 25)
 		returnFontText = returnFont.render("Press Any Key To Return To Menu", True, black)
