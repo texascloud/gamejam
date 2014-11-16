@@ -84,19 +84,21 @@ def scores():
 		pygame.draw.line(screen, black, (width/2, 93), (width/2, height-80), 4)
 		scoreFont = pygame.font.SysFont('Arial', 25)
 		for i in range(len(casualScoreList)):
+			###NAMES###
 			nameText = scoreFont.render(str(i+1) + ". " + casualScoreList[i][0], True, black)
 			nameText_rect = nameText.get_rect()
 			screen.blit(nameText, [width/4-75,(height/8-40)+(50*(i+2))])
-
+			###SCORES###
 			scoreText = scoreFont.render("   - - -      " + str(casualScoreList[i][1]), True, black)
 			scoreText_rect = scoreText.get_rect()
-			screen.blit(scoreText, [width/4+5,(height/8-40)+(50*(i+2))])
+			screen.blit(scoreText, [width/4+10,(height/8-40)+(50*(i+2))])
 
 		for i in range(len(hardScoreList)):
+			###NAMES###
 			nameText = scoreFont.render(str(i+1) + ". " + hardScoreList[i][0], True, black)
 			nameText_rect = nameText.get_rect()
 			screen.blit(nameText, [((width*2)/3)-50,(height/8-40)+(50*(i+2))])
-
+			###SCORES###
 			scoreText = scoreFont.render("   - - -      " + str(hardScoreList[i][1]), True, black)
 			scoreText_rect = scoreText.get_rect()
 			screen.blit(scoreText, [((width*2)/3)+50,(height/8-40)+(50*(i+2))])
