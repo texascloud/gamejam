@@ -1,4 +1,4 @@
-import sys, pygame, random
+import sys, pygame, random, csv
 from pygame.locals import *
 
 def main(hardMode):
@@ -25,6 +25,7 @@ def main(hardMode):
 
 	ops = ["+", "-"]
 	eq = ""
+	solved_eq = ""
 	correct_val = 0
 	#real_rect = pygame.Rect(  random.randint(img_size, width - img_size), random.randint(img_size + 60, height - img_size), img_size+5, img_size+5 )
 
@@ -34,7 +35,8 @@ def main(hardMode):
 		var = random.randint(-50, 50)
 		result = eval(str(var) + " " + op + " " + str(correct_val))
 		eq = str(var) + " " + str(op) + " _ " + " = " + str(result)
-		return (eq, correct_val)
+		solved_eq = str(var) +str(op) + " "+ str(correct_val) + " = " + str(result)
+		return (eq, correct_val, solved_eq)
 
 	score = 0
 	fps = 20
@@ -59,7 +61,13 @@ def main(hardMode):
 	scoreFont = pygame.font.SysFont('Arial', 40)
 	scoreFont.set_bold
 
-	def gameOver(): ####################################################### GAME OVER ###########
+	def gameOver(end_score): ####################################################### GAME OVER ###########
+		screen.fill(white)
+
+		solvedEquationText = scoreFont.render(solved_eq, True, black)
+		solvedEquationText_rect = solvedEquationText.get_rect()
+		screen.blit(solvedEquationText, [width/2 - (solvedEquationText_rect.w/2),5])
+
 		gameOverFont = pygame.font.SysFont('Arial', 60)
 		gameOverFont.set_bold
 		gameOverText = gameOverFont.render("GAME OVER", True, (255, 0, 0))
@@ -79,6 +87,12 @@ def main(hardMode):
 		retryText_rect = retryText.get_rect()
 		screen.blit(retryText, [width/2-(retryText_rect.w/2),height/2 - 50])
 
+		highScoreList = []
+		with open('scores.txt', 'r') as f:
+			reader = csv.reader(f, delimiter=",")
+			for row in reader:
+				highScoreList.append(row)
+		print highScoreList
 		pygame.display.update()
 
 		exit = False
@@ -122,10 +136,10 @@ def main(hardMode):
 		snake[len(snake)-1] = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
 
 		if x_pos < 0 or x_pos > width:
-			gameOver()
+			gameOver(score)
 			gameExit = True
 		if y_pos < 55 or y_pos > height:
-			gameOver()
+			gameOver(score)
 			gameExit = True
 
 		screen.fill(white)
@@ -137,14 +151,14 @@ def main(hardMode):
 		for part in range(len(snake)-1):
 			idx = snake[len(snake)-1].colliderect(snake[part])
 			if idx != 0:
-				gameOver()
+				gameOver(score)
 				gameExit = True;
 
 
 
 		if newEquation:
 			#create list of randomly generated numbers
-			eq, correct_val = equation()
+			eq, correct_val, solved_eq = equation()
 			fps += 2
 			if hardMode:
 				num_apples += 1 
@@ -177,7 +191,7 @@ def main(hardMode):
 					#rect_object_list = position_generator(num_apples)
 					score += 1
 				else:
-					gameOver()
+					gameOver(score)
 					gameExit= True
 		
 		scoreText = scoreFont.render("Score: " + str(score), True, (0, 100, 0))
