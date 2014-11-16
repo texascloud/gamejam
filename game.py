@@ -42,7 +42,8 @@ def main(hardMode, startTime):
 	fps = 20
 	font = pygame.font.SysFont('Arial', 30)
 	############################################################# Generates random positions -- Should be list of Rects
-	def position_generator(amount):
+	def position_generator(amount, snake_head = None):
+		if snake_head is None: snake_head = pygame.Rect(0,0,0,0)
 		numList = []
 		for i in range(amount):
 			applepos = pygame.Rect(  random.randint(img_size, width - img_size), random.randint(img_size + 50, height - img_size), img_size+10, img_size+10 )
@@ -211,6 +212,7 @@ def main(hardMode, startTime):
 
 		
 		snake[len(snake)-1] = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
+		snake_head_collider = pygame.Rect(x_pos, y_pos, snakeSize + 50, snakeSize + 50)
 
 		if x_pos < 0 or x_pos > width:
 			gameOver(score)
@@ -243,7 +245,7 @@ def main(hardMode, startTime):
 				num_apples += 2
 				numRange = 7*num_apples
 			if num_apples > 14: ops.append("*")
-			rect_object_list = position_generator(num_apples)
+			rect_object_list = position_generator(num_apples, snake_head_collider)
 			random_nums = []
 			for x in range(num_apples):
 				rndm = random.randint(-20, 20)
