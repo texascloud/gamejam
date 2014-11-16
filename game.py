@@ -19,6 +19,7 @@ def main(hardMode, startTime):
 	red = 255, 0, 0
 	blue = 0, 0, 255
 	snake_color = black
+	time_limit = 15.0
 
 	font = pygame.font.SysFont('Arial', 30)
 	gameExit = False
@@ -173,11 +174,12 @@ def main(hardMode, startTime):
 	while not gameExit:
 		currentTime = (pygame.time.get_ticks() / 1000.0) - (startTime / 1000.0)
 		if hardMode:
-			if currentTime > 10.0:
+			time_limit = 10.0
+			if currentTime > time_limit:
 				gameOver(score)
 				gameExit = True
 		else:
-			if currentTime > 15.0:
+			if currentTime > time_limit:
 				gameOver(score)
 				gameExit = True
 
