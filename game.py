@@ -88,6 +88,7 @@ def main(hardMode, startTime):
 				if event.type == pygame.QUIT:
 					nameEntered = True
 					pygame.quit()
+					sys.exit(0)
 				else:
 					inkey = get_key()
 					if inkey == K_BACKSPACE:
@@ -98,15 +99,6 @@ def main(hardMode, startTime):
 						if len(name) < 6:
 							name.append(chr(inkey))
 
-
-
-				# elif event.type == K_BACKSPACE:
-			 #    	name = name[0:-1]
-			 #    elif event.type == K_RETURN:
-			 #    	break
-			 #    else
-			 #    	if len(name) < 10:
-				#     	name.append(chr(inkey))
 
 		return string.join(name,"")
 

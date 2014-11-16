@@ -45,6 +45,7 @@ def scores():
 			if event.type == pygame.QUIT:
 				gameExit = True
 				pygame.quit()
+				sys.exit(0)
 			elif event.type == pygame.KEYDOWN:
 				gameExit = True
 
@@ -102,6 +103,3 @@ def scores():
 
 
 		pygame.display.update()
-
-		# if gameExit:
-		# 	f.close()
