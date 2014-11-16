@@ -1,7 +1,7 @@
 import sys, pygame, random
 from pygame.locals import *
 
-def main():
+def main(hardMode):
 
 	pygame.display.set_caption('Snake Solver')
 	size = width, height = 800, 600
@@ -26,7 +26,6 @@ def main():
 	ops = ["+", "-"]
 	eq = ""
 	correct_val = 0
-	#real_rect = pygame.Rect(  random.randint(img_size, width - img_size), random.randint(img_size + 60, height - img_size), img_size+5, img_size+5 )
 
 	def equation():
 		correct_val = random.randint(-50, 50)
@@ -34,12 +33,12 @@ def main():
 		var = random.randint(-50, 50)
 		result = eval(str(var) + " " + op + " " + str(correct_val))
 		eq = str(var) + " " + str(op) + " _ " + " = " + str(result)
-		return (eq, correct_val)
+		return eq
 
 	score = 0
-	fps = 20
+	fps = 40
 	font = pygame.font.SysFont('Arial', 30)
-	######################################### Generates random positions -- Should be list of Rects
+	#Generates random positions -- Should be list of Rects
 	def position_generator(amount):
 		numList = []
 		
@@ -49,15 +48,11 @@ def main():
 				applepos = pygame.Rect(  random.randint(img_size, width), random.randint(img_size, height), img_size, img_size )
 			#add code here to check if the applepos rect collides with the snake, if so generate a new one until it no longer collides
 			numList.append(applepos)
-
-		#real_rect = pygame.Rect(  random.randint(img_size, width - img_size), random.randint(img_size + 60, height - img_size), img_size+5, img_size+5 )
-
-		#numList.insert(0, real_rect) #real_rect is at the beginning of the numList
 		return numList
 
 	#START GRID ITEM VARIABLES
 	img_size = 20
-	num_apples = 6
+	num_apples = 2
 
 	rect_object_list = position_generator(num_apples) #list of Rect objects
 
@@ -152,34 +147,29 @@ def main():
 
 		if newEquation:
 			#create list of randomly generated numbers
-			eq, correct_val = equation()
-			fps += 2
-			#num_apples += 1 
+			random_nums = [random.randint(0, 10) for x in range(num_apples)] #[1, 5, 7, 2]
+			eq = equation()
+
+			#num_apples += 1
 			rect_object_list = position_generator(num_apples)
 			random_nums = [random.randint(-50, 50) for x in range(num_apples)] #[1, 5, 7, 2]
+			
 			newEquation = False
 
 		########### DRAW APPLES AND 1 CORRECT VALUE ##############
-		rect_font = pygame.font.SysFont('Arial', img_size)
-		text = rect_font.render( str(correct_val), True, red)
-		screen.blit(text, rect_object_list[0])
-		for i in range(1,num_apples):
-			text = rect_font.render( str(random_nums[i]), True, red)
+		for i in range(num_apples):
+			font2 = pygame.font.SysFont('Arial', img_size)
+			text = font2.render( str(random_nums[i]), True, red)
 			screen.blit(text, rect_object_list[i])
-		
 		
 		for apple in range(len(rect_object_list)):
 			if snake[len(snake)-1].colliderect(rect_object_list[apple]) != 0:
-				if apple == 0:
-					#print 'CORRECT VALUE BISH' 
-					body = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
-					snake.append(body)
-					newEquation = True
-					#rect_object_list = position_generator(num_apples)
-					score += 1
-				else:
-					gameOver()
-					gameExit= True
+				
+				body = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
+				snake.append(body)
+				newEquation = True
+				#rect_object_list = position_generator(num_apples)
+				score += 1
 		
 		scoreText = scoreFont.render("Score: " + str(score), True, (0, 100, 0))
 		scoreText_rect = scoreText.get_rect()

@@ -36,6 +36,10 @@ while not gameExit:
 	start = startFont.render("Press 'Enter' to Play", True, (0, 0, 255))
 	start_rect = start.get_rect()
 
+	#########START#########
+	hard = startFont.render("Press 'C' to Play", True, (0, 0, 255))
+	hard_rect = hard.get_rect()
+
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			gameExit = True
@@ -49,5 +53,6 @@ while not gameExit:
 	screen.blit(title, [width/2-(title_rect.w/2),height/4])
 	screen.blit(subTitle, [width/2-(sub_title_rect.w/2),height/3+ 15])
 	screen.blit(start, [width/2-(start_rect.w/2),height/2])
+	screen.blit(hard, [width/2-(hard_rect.w/2),height/2 + 50])
 
 	pygame.display.update()
