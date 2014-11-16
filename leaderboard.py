@@ -5,7 +5,7 @@ from pygame.locals import *
 
 def scores():
 	pygame.display.set_caption('Snake Solver - Leaderboard')
-	size = width, height = 800, 600
+	size = width, height = 1280, 700
 	screen = pygame.display.set_mode(size)
 	clock = pygame.time.Clock()
 
@@ -47,7 +47,8 @@ def scores():
 
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
-				sys.exit(0)
+				gameExit = True
+				pygame.quit()
 			elif event.type == pygame.KEYDOWN:
 				gameExit = True
 
@@ -81,7 +82,7 @@ def scores():
 		screen.blit(casualText, [width-(casualText_rect.w)- 120,height/8+30])
 
 		#########SCORES#########
-		pygame.draw.line(screen, black, (width/2, 93), (width/2, height-80), 4)
+		pygame.draw.line(screen, black, (width/2, height/7+5), (width/2, height-80), 4)
 		scoreFont = pygame.font.SysFont('Arial', 25)
 		for i in range(len(casualScoreList)):
 			###NAMES###

@@ -1,8 +1,8 @@
-rr,0
-wat,1
-rr,1
-derp,1
-rrr,2
-durrr,2
+pj,4
 peter,3
+peter,3
+peter,3
+peter,4
 r,4
+peter,5
+max,8

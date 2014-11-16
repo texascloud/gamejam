@@ -5,7 +5,7 @@ from leaderboard import scores
 pygame.init()
 
 pygame.display.set_caption('Snake Solver')
-size = width, height = 800, 600
+size = width, height = 1280, 700
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 
@@ -51,9 +51,9 @@ while not gameExit:
 			sys.exit(0)
 		elif event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_RETURN:
-				main(False)
+				main(False, pygame.time.get_ticks() / 1000.0)
 			if event.key == pygame.K_c:
-				main(True)
+				main(True, pygame.time.get_ticks() / 1000.0)
 			if event.key == pygame.K_l:
 				scores()
 

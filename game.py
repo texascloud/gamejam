@@ -2,10 +2,9 @@ import sys, pygame, random, csv, eztext, string
 from operator import itemgetter
 from pygame.locals import *
 
-def main(hardMode):
-
+def main(hardMode, startTime):
 	pygame.display.set_caption('Snake Solver')
-	size = width, height = 800, 600
+	size = width, height = 1280, 700
 	screen = pygame.display.set_mode(size)
 	clock = pygame.time.Clock()
 	snakeSize = 10
@@ -24,7 +23,8 @@ def main(hardMode):
 	y_pos = 300
 	snake = [pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)]
 
-	ops = ["+", "-", "*"]
+	numRange = 49
+	ops = ["+", "-"]
 	eq = ""
 	solved_eq = ""
 	correct_val = 0
@@ -33,7 +33,7 @@ def main(hardMode):
 	def equation():
 		correct_val = random.randint(-20, 20)
 		op = ops[random.randint(0, len(ops)-1)]
-		var = random.randint(-150, 150)
+		var = random.randint(-numRange, numRange)
 		result = eval(str(var) + " " + op + " " + str(correct_val))
 		eq = str(var) + " " + str(op) + " _ " + " = " + str(result)
 		solved_eq = str(var) + " " +str(op) + " "+ str(correct_val) + " = " + str(result)
@@ -46,10 +46,10 @@ def main(hardMode):
 	def position_generator(amount):
 		numList = []
 		for i in range(amount):
-			applepos = pygame.Rect(  random.randint(img_size, width - (img_size+10)), random.randint(img_size + 50, height - img_size), img_size+10, img_size+10 )
+			applepos = pygame.Rect(  random.randint(img_size, width - img_size), random.randint(img_size + 50, height - img_size), img_size+10, img_size+10 )
 			#check if the applepos rect collides with the snake, if so generate a new one until it no longer collides
-			while applepos.collidelist(numList) != -1 or applepos.collidelist(snake) != -1:
-				applepos = pygame.Rect(  random.randint(img_size, width), random.randint(img_size, height), img_size, img_size )
+			while applepos.collidelist(numList) != -1 and applepos.collidelist(snake) != -1:
+				applepos = pygame.Rect(  random.randint(img_size, width - img_size), random.randint(img_size + 50, height - img_size), img_size+10, img_size+10 )
 			numList.append(applepos)
 		return numList
 
@@ -82,7 +82,8 @@ def main(hardMode):
 			screen.blit(promptText, [width/2 - (promptText_rect.w/2),height/4 + 40])
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
-					sys.exit(0)
+					nameEntered = True
+					pygame.quit()
 				else:
 					inkey = get_key()
 					if inkey == K_BACKSPACE:
@@ -161,19 +162,23 @@ def main(hardMode):
 		while not exit:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
-					sys.exit(0)
+					exit = True
+					pygame.quit()
 				elif event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_RETURN:
 						exit = True
 					if event.key == pygame.K_r:
-						main(hardMode)
+						main(hardMode, pygame.time.get_ticks() / 1000.0)
 						exit = True
 	
 	while not gameExit:
+		time = (pygame.time.get_ticks() / 1000.0) - startTime
+
 		clock.tick(fps)
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
-				sys.exit(0)
+					gameExit = True
+					pygame.quit()
 			elif event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_LEFT and x_speed == 0:
 					x_speed = -snakeSize
@@ -221,9 +226,12 @@ def main(hardMode):
 		if newEquation:
 			#create list of randomly generated numbers
 			eq, correct_val, solved_eq = equation()
-			fps += 2
+			if hardMode: fps += 5
+			else: fps += 2
 			if hardMode:
-				num_apples += 1 
+				num_apples += 2
+				numRange = 7*num_apples
+			if num_apples > 14: ops.append("*")
 			rect_object_list = position_generator(num_apples)
 			random_nums = []
 			for x in range(num_apples):
@@ -255,10 +263,12 @@ def main(hardMode):
 					gameOver(score)
 					gameExit= True
 		
+		#######SCORE#######			
 		scoreText = scoreFont.render("Score: " + str(score), True, (0, 100, 0))
 		scoreText_rect = scoreText.get_rect()
 		screen.blit(scoreText, [5,5])
 
+		#######EQUATION#######	
 		equationText = scoreFont.render(eq, True, black)
 		equationText_rect = equationText.get_rect()
 		screen.blit(equationText, [width/2 - (equationText_rect.w/2),5])
