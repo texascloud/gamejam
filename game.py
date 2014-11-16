@@ -1,4 +1,4 @@
-import sys, pygame, random, csv, inputbox
+import sys, pygame, random, csv, eztext
 from operator import itemgetter
 from pygame.locals import *
 
@@ -12,6 +12,7 @@ def main(hardMode):
 	x_speed = snakeSize
 	y_speed = 0
 	newEquation = True
+	txtbx = eztext.Input(maxlength=45, color=(255,0,0), prompt='type here: ')
 
 
 	black = 0, 0, 0
@@ -42,11 +43,11 @@ def main(hardMode):
 	score = 0
 	fps = 20
 	font = pygame.font.SysFont('Arial', 30)
-	######################################### Generates random positions -- Should be list of Rects
+	############################################################# Generates random positions -- Should be list of Rects
 	def position_generator(amount):
 		numList = []
 		for i in range(amount):
-			applepos = pygame.Rect(  random.randint(img_size, width - img_size), random.randint(img_size + 60, height - img_size), img_size+5, img_size+5 )
+			applepos = pygame.Rect(  random.randint(img_size, width - (img_size+10)), random.randint(img_size + 50, height - img_size), img_size+10, img_size+10 )
 			#check if the applepos rect collides with the snake, if so generate a new one until it no longer collides
 			while applepos.collidelist(numList) != -1 or applepos.collidelist(snake) != -1:
 				applepos = pygame.Rect(  random.randint(img_size, width), random.randint(img_size, height), img_size, img_size )
