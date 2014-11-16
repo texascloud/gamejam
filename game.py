@@ -98,7 +98,7 @@ def main(hardMode):
 					if event.key == pygame.K_RETURN:
 						exit = True
 					if event.key == pygame.K_r:
-						main()
+						main(hardMode)
 						exit = True
 	
 	while not gameExit:
