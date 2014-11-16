@@ -1,4 +1,4 @@
-import sys, pygame, random, csv
+import sys, pygame, random, csv, inputbox
 from operator import itemgetter
 from pygame.locals import *
 
@@ -62,6 +62,27 @@ def main(hardMode):
 	scoreFont = pygame.font.SysFont('Arial', 40)
 	scoreFont.set_bold
 
+	def getName():
+		nameEntered = False
+		name = []
+
+		while not nameEntered:
+			for event in pygame.event.get():
+				if event.type == pygame.QUIT:
+					sys.exit(0)
+				elif event.type == K_BACKSPACE:
+			      name = current_string[0:-1]
+			    elif event.type == K_RETURN:
+			      break
+			    elif event.type == K_MINUS:
+			      current_string.append("_")
+			    elif event <= 127:
+			      current_string.append(chr(inkey))
+
+			promptText = scoreFont.render("Enter Name: " + string.join(name,""), True, black)
+			promptText_rect = promptText.get_rect()
+			screen.blit(promptText, [width/2 - (promptText_rect.w/2),height/4 + 10])
+
 	def gameOver(end_score): ####################################################### GAME OVER ###########
 		screen.fill(white) #necessary
 
@@ -73,7 +94,7 @@ def main(hardMode):
 		gameOverFont.set_bold
 		gameOverText = gameOverFont.render("GAME OVER", True, (255, 0, 0))
 		gameOverText_rect = gameOverText.get_rect()
-		screen.blit(gameOverText, (width/2 -(gameOverText_rect.w/2), height/4)) 
+		screen.blit(gameOverText, (width/2 -(gameOverText_rect.w/2), height/4 - 30)) 
 		
 		scoreText = scoreFont.render("Score: " + str(score), True, (0, 100, 0))
 		scoreText_rect = scoreText.get_rect()
@@ -99,7 +120,9 @@ def main(hardMode):
 		
 		scores = sorted(leaderboardList, key=itemgetter(1))
 		if end_score > scores[0][1]:
-			scores[0] = ("ZZZ", end_score)
+			# name = inputbox.ask(screen, "Enter Name")
+			name = getName()
+			scores[0] = (name, end_score)
 
 		with open("scores.txt", "w") as f:
 		    csv.register_dialect("custom", delimiter=",", skipinitialspace=True)
