@@ -68,11 +68,17 @@ def scores():
 		screen.blit(returnFontText, [width/2-(returnFontText_rect.w/2),height-65])
 		
 		#########CASUAL#########
-		subTitleFont = pygame.font.SysFont('Arial', 40)
+		subTitleFont = pygame.font.SysFont('Arial', 20)
 		subTitleFont.set_underline(True)
+		subTitleFont.set_bold(True)
 		casualText = subTitleFont.render("FUCKING CASUALS", True, black)
 		casualText_rect = casualText.get_rect()
-		screen.blit(casualText, [width/4-(casualText_rect.w/2),height/8])
+		screen.blit(casualText, [width/4-(casualText_rect.w/2)+ 29,height/8+30])
+
+		#########HARDCORE#########
+		casualText = subTitleFont.render("SO HARDCORE", True, black)
+		casualText_rect = casualText.get_rect()
+		screen.blit(casualText, [width-(casualText_rect.w)- 120,height/8+30])
 
 		#########SCORES#########
 		pygame.draw.line(screen, black, (width/2, 93), (width/2, height-80), 4)
