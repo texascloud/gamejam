@@ -93,11 +93,20 @@ def main(hardMode):
 			reader = csv.reader(f, delimiter=",")
 			for row in reader:
 				leaderboardList.append(row)
+		
 		for i in range(len(leaderboardList)):
 			leaderboardList[i] = (leaderboardList[i][0], int(leaderboardList[i][1]))
-		print leaderboardList
+		
 		scores = sorted(leaderboardList, key=itemgetter(1))
-		print scores
+		if end_score > scores[0][1]:
+			scores[0] = ("ZZZ", end_score)
+
+		with open("scores.txt", "w") as f:
+		    csv.register_dialect("custom", delimiter=",", skipinitialspace=True)
+		    writer = csv.writer(f, dialect="custom")
+		    for tup in scores:
+        		writer.writerow(tup)
+
 		pygame.display.update()
 
 		exit = False
