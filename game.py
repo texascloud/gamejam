@@ -224,7 +224,7 @@ def main(hardMode, startTime):
 
 		
 		snake[len(snake)-1] = pygame.Rect(x_pos, y_pos, snakeSize, snakeSize)
-		snake_head_collider = pygame.Rect(x_pos, y_pos, snakeSize + 50, snakeSize + 50)
+		snake_head_collider = pygame.Rect(x_pos, y_pos, snakeSize + 200, snakeSize + 200)
 
 		if x_pos < 0 or x_pos > width:
 			gameOver(score)
