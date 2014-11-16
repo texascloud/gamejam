@@ -53,7 +53,12 @@ def scores():
 		for i in range(len(highScoreList)):
 			nameText = scoreFont.render(str(i+1) + ". " + highScoreList[i][0], True, black)
 			nameText_rect = nameText.get_rect()
-			screen.blit(nameText, [width/3-(nameText_rect.w/2),(height/8-50)+(50*(i+2))])
+			screen.blit(nameText, [width/3+20,(height/8-50)+(50*(i+2))])
+
+			scoreText = scoreFont.render("   - - -      " + highScoreList[i][1], True, black)
+			scoreText_rect = scoreText.get_rect()
+			screen.blit(scoreText, [width/3+120,(height/8-50)+(50*(i+2))])
+
 
 		pygame.display.update()
 
