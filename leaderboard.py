@@ -15,17 +15,28 @@ def scores():
 
 	gameExit = False
 	fps = 60
-	highScoreList =[]
+	casualScoreList =[]
+	hardScoreList =[]
 
 	with open('scores.txt', 'r') as f:
 		reader = csv.reader(f, delimiter=",")
 		for row in reader:
-			highScoreList.append(row)
+			casualScoreList.append(row)
 
-	for i in range(len(highScoreList)):
-		highScoreList[i] = (highScoreList[i][0], int(highScoreList[i][1]))
-	highScoreList = sorted(highScoreList, key=itemgetter(1))
-	highScoreList = highScoreList[::-1]
+	for i in range(len(casualScoreList)):
+		casualScoreList[i] = (casualScoreList[i][0], int(casualScoreList[i][1]))
+	casualScoreList = sorted(casualScoreList, key=itemgetter(1))
+	casualScoreList = casualScoreList[::-1]
+
+	with open('ERECTscores.txt', 'r') as f:
+		reader = csv.reader(f, delimiter=",")
+		for row in reader:
+			hardScoreList.append(row)
+
+	for i in range(len(hardScoreList)):
+		hardScoreList[i] = (hardScoreList[i][0], int(hardScoreList[i][1]))
+	hardScoreList = sorted(hardScoreList, key=itemgetter(1))
+	hardScoreList = hardScoreList[::-1]
 
 	# f = open('scores.txt', 'w+')
 	# for l in f.readlines():
@@ -54,17 +65,35 @@ def scores():
 		returnFont = pygame.font.SysFont('Arial', 25)
 		returnFontText = returnFont.render("Press Any Key To Return To Menu", True, black)
 		returnFontText_rect = returnFontText.get_rect()
-		screen.blit(returnFontText, [width/2-(returnFontText_rect.w/2),height-80])
+		screen.blit(returnFontText, [width/2-(returnFontText_rect.w/2),height-65])
+		
+		#########CASUAL#########
+		subTitleFont = pygame.font.SysFont('Arial', 40)
+		subTitleFont.set_underline(True)
+		casualText = subTitleFont.render("FUCKING CASUALS", True, black)
+		casualText_rect = casualText.get_rect()
+		screen.blit(casualText, [width/4-(casualText_rect.w/2),height/8])
 
+		#########SCORES#########
+		pygame.draw.line(screen, black, (width/2, 93), (width/2, height-80), 4)
 		scoreFont = pygame.font.SysFont('Arial', 25)
-		for i in range(len(highScoreList)):
-			nameText = scoreFont.render(str(i+1) + ". " + highScoreList[i][0], True, black)
+		for i in range(len(casualScoreList)):
+			nameText = scoreFont.render(str(i+1) + ". " + casualScoreList[i][0], True, black)
 			nameText_rect = nameText.get_rect()
-			screen.blit(nameText, [width/3+20,(height/8-50)+(50*(i+2))])
+			screen.blit(nameText, [width/4-75,(height/8-40)+(50*(i+2))])
 
-			scoreText = scoreFont.render("   - - -      " + str(highScoreList[i][1]), True, black)
+			scoreText = scoreFont.render("   - - -      " + str(casualScoreList[i][1]), True, black)
 			scoreText_rect = scoreText.get_rect()
-			screen.blit(scoreText, [width/3+120,(height/8-50)+(50*(i+2))])
+			screen.blit(scoreText, [width/4+5,(height/8-40)+(50*(i+2))])
+
+		for i in range(len(hardScoreList)):
+			nameText = scoreFont.render(str(i+1) + ". " + hardScoreList[i][0], True, black)
+			nameText_rect = nameText.get_rect()
+			screen.blit(nameText, [((width*2)/3)-50,(height/8-40)+(50*(i+2))])
+
+			scoreText = scoreFont.render("   - - -      " + str(hardScoreList[i][1]), True, black)
+			scoreText_rect = scoreText.get_rect()
+			screen.blit(scoreText, [((width*2)/3)+50,(height/8-40)+(50*(i+2))])
 
 
 		pygame.display.update()
