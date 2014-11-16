@@ -1,4 +1,5 @@
 from __future__ import print_function
+from operator import itemgetter
 import sys, pygame, csv
 from pygame.locals import *
 
@@ -20,6 +21,11 @@ def scores():
 		reader = csv.reader(f, delimiter=",")
 		for row in reader:
 			highScoreList.append(row)
+
+	for i in range(len(highScoreList)):
+		highScoreList[i] = (highScoreList[i][0], int(highScoreList[i][1]))
+	highScoreList = sorted(highScoreList, key=itemgetter(1))
+	highScoreList = highScoreList[::-1]
 
 	# f = open('scores.txt', 'w+')
 	# for l in f.readlines():
@@ -55,7 +61,7 @@ def scores():
 			nameText_rect = nameText.get_rect()
 			screen.blit(nameText, [width/3+20,(height/8-50)+(50*(i+2))])
 
-			scoreText = scoreFont.render("   - - -      " + highScoreList[i][1], True, black)
+			scoreText = scoreFont.render("   - - -      " + str(highScoreList[i][1]), True, black)
 			scoreText_rect = scoreText.get_rect()
 			screen.blit(scoreText, [width/3+120,(height/8-50)+(50*(i+2))])
 
