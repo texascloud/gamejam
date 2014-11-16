@@ -55,7 +55,7 @@ def main(hardMode):
 
 	#START GRID ITEM VARIABLES
 	img_size = 20
-	num_apples = 6
+	num_apples = 4
 	rect_object_list = position_generator(num_apples) #list of Rect objects
 	#END GRID ITEM VARIABLES
 
@@ -134,7 +134,9 @@ def main(hardMode):
 		pygame.display.update()
 
 		leaderboardList = []
-		with open('scores.txt', 'r') as f:
+		if hardMode: f = 'ERECTscores.txt'
+		else: f = 'scores.txt'
+		with open(f, 'r') as f:
 			reader = csv.reader(f, delimiter=",")
 			for row in reader:
 				leaderboardList.append(row)
@@ -148,7 +150,7 @@ def main(hardMode):
 			name = getName()
 			scores[0] = (name, end_score)
 
-		with open("scores.txt", "w") as f:
+		with open(f, "w") as f:
 		    csv.register_dialect("custom", delimiter=",", skipinitialspace=True)
 		    writer = csv.writer(f, dialect="custom")
 		    for tup in scores:
@@ -228,7 +230,7 @@ def main(hardMode):
 			random_nums = []
 			for x in range(num_apples):
 				rndm = random.randint(-20, 20)
-				while rndm == correct_val:
+				while rndm is correct_val or rndm in random_nums:
 					rndm = random.randint(-20, 20)
 				random_nums.append(rndm)
 			newEquation = False
