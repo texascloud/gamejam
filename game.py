@@ -1,7 +1,7 @@
 import sys, pygame, random
 from pygame.locals import *
 
-def main():
+def main(hardMode):
 
 	pygame.display.set_caption('Snake Solver')
 	size = width, height = 800, 600
@@ -151,10 +151,12 @@ def main():
 
 
 		if newEquation:
+
 			#create list of randomly generated numbers
 			eq, correct_val = equation()
 			fps += 2
-			#num_apples += 1 
+			if hardMode:
+				num_apples += 1 
 			rect_object_list = position_generator(num_apples)
 			random_nums = [random.randint(-50, 50) for x in range(num_apples)] #[1, 5, 7, 2]
 			newEquation = False
