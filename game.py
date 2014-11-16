@@ -106,6 +106,8 @@ def main(hardMode, startTime):
 
 		return string.join(name,"")
 
+	time = startTime
+
 	def gameOver(end_score): ####################################################### GAME OVER ###########
 		screen.fill(white) #necessary
 
@@ -226,6 +228,7 @@ def main(hardMode, startTime):
 		if newEquation:
 			#create list of randomly generated numbers
 			eq, correct_val, solved_eq = equation()
+			startTime = time
 			if hardMode: fps += 5
 			else: fps += 2
 			if hardMode:
@@ -272,5 +275,10 @@ def main(hardMode, startTime):
 		equationText = scoreFont.render(eq, True, black)
 		equationText_rect = equationText.get_rect()
 		screen.blit(equationText, [width/2 - (equationText_rect.w/2),5])
+
+		#######SCORE#######	
+		timeText = scoreFont.render(str(time), True, (0, 100, 0))
+		timeText_rect = timeText.get_rect()
+		screen.blit(timeText, [(width*7)/8,5])
 
 		pygame.display.update()
