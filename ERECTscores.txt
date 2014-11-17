@@ -1,8 +1,8 @@
+derp3,2
+r,1
 jurb,1
-aaa,0
-aaa,0
-aaa,0
-aaa,0
+derp,2
 vjmc,2
 vjmc,2
 mcvj,4
+p j,5
