@@ -308,7 +308,8 @@ def main(hardMode, startTime):
 		screen.blit(equationText, [width/2 - (equationText_rect.w/2),5])
 
 		#######TIME#######	
-		timeText = scoreFont.render(str(currentTime), True, (0, 100, 0))
+		# roundedTime = ".3f" % currentTime
+		timeText = scoreFont.render(str(round(currentTime, 3)) + "s", True, (0, 100, 0))
 		timeText_rect = timeText.get_rect()
 		screen.blit(timeText, [(width*7)/8,5])
 
