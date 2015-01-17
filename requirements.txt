@@ -1,3 +1,4 @@
+--process-dependency-links
 Django==1.6.5
 dj-database-url==0.3.0
 dj-static==0.0.6
@@ -6,5 +7,6 @@ gunicorn==19.0.0
 psycopg2==2.5.3
 static3==0.5.1
 wsgiref==0.1.2
-PySDL2==0.9.3
+PySDL2
+git+git://github.com/collective/buildout.pygame.git
 git+git://github.com/xamox/pygame.git
